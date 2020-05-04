@@ -26,5 +26,10 @@ function normalize(name) {
   return name ? uts46.toAscii(name, {useStd3ASCII: true, transitional: false}) : name
 }
 
+function labelhash(name) {
+  return '0x' + sha3(name);
+}
+
 exports.hash = namehash
 exports.normalize = normalize
+exports.labelhash = labelhash
