@@ -2,8 +2,9 @@
   "name": "eth-ens-namehash",
   "version": "2.1.0",
   "description": "A simple module for generating ENS namehashes per spec https://github.com/ethereum/EIPs/issues/137",
-  "main": "index.js",
+  "main": "bundle/index.js",
   "scripts": {
+    "build": "npx webpack",
     "bundle": "browserify index.js -o dist/index.js",
     "test": "node test"
   },

@@ -1,35 +1,37 @@
-var sha3 = require('js-sha3').keccak_256
-var uts46 = require('idna-uts46-hx')
+var sha3 = require("js-sha3").keccak_256;
+var uts46 = require("idna-uts46-hx");
 
-function namehash (inputName) {
+function namehash(inputName) {
   // Reject empty names:
-  var node = ''
+  var node = "";
   for (var i = 0; i < 32; i++) {
-    node += '00'
+    node += "00";
   }
 
-  name = normalize(inputName)
+  name = normalize(inputName);
 
   if (name) {
-    var labels = name.split('.')
+    var labels = name.split(".");
 
-    for(var i = labels.length - 1; i >= 0; i--) {
-      var labelSha = sha3(labels[i])
-      node = sha3(new Buffer(node + labelSha, 'hex'))
+    for (var i = labels.length - 1; i >= 0; i--) {
+      var labelSha = sha3(labels[i]);
+      node = sha3(new Buffer(node + labelSha, "hex"));
     }
   }
 
-  return '0x' + node
+  return "0x" + node;
 }
 
 function normalize(name) {
-  return name ? uts46.toAscii(name, {useStd3ASCII: true, transitional: false}) : name
+  return name
+    ? uts46.toAscii(name, { useStd3ASCII: true, transitional: false })
+    : name;
 }
 
 function labelhash(name) {
-  return '0x' + sha3(name);
+  return "0x" + sha3(name);
 }
 
-exports.hash = namehash
-exports.normalize = normalize
-exports.labelhash = labelhash
+exports.hash = namehash;
+exports.normalize = normalize;
+exports.labelhash = labelhash;
